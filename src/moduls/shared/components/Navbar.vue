@@ -11,11 +11,12 @@
 
 <script>
 import { defineAsyncComponent } from "vue";
+
 export default {
   data() {
     return {
       links: [
-        { to: "/", name: "Pokemons" },
+        { to: "/home", name: "Pokemons" },
         { to: "/pokemonId/50", name: "Por ID" },
         { to: "/about", name: "About" },
         { to: "https://google.com", name: "Google" },
@@ -35,7 +36,7 @@ div {
 
 div a {
   font-weight: bold;
-  color: #2c3e50;
+  /*color: #2c3e50;*/
   margin: 0 10px;
 }
 
