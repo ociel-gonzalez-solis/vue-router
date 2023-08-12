@@ -52,6 +52,37 @@ const routes = [
   },
 
   {
+    path: "/dbz",
+    name: "dbz-characters",
+    component: () =>
+      import(
+        /* webpackChunkName: 'PokemonLayout' */ "@/moduls/dbz/layout/DBLayout.vue"
+      ),
+    children: [
+      {
+        path: "home",
+        name: "dbz-characters",
+        component: () =>
+          import(
+            /* webpackChunkName: 'dbz-Home' */ "@/moduls/dbz/pages/Characters"
+          ),
+      },
+      {
+        path: "about",
+        name: "dbz-about",
+        component: () =>
+          import(
+            /* webpackChunkName: 'dbz-About' */ "@/moduls/dbz/pages/About"
+          ),
+      },
+      {
+        path: "",
+        redirect: { name: "dbz-characters" },
+      },
+    ],
+  },
+
+  {
     path: "/:pathMatch(.*)*",
     component: () =>
       import(
@@ -63,6 +94,20 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  console.log({ to, from, next });
+
+  const random = Math.random() * 100;
+
+  if (random > 50) {
+    console.log("Authenticated");
+    next();
+  } else {
+    console.log(random, "blocked by the beforeEach Guard");
+    next({ name: "pokemon-home" });
+  }
 });
 
 export default router;
